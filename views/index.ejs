@@ -4,121 +4,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TypeCast.Life!</title>
+    <title>GENERIC</title>
     <!-- CSS only -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
+   
+    <link rel="stylesheet" href="../public/css/main.css"> 
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <!-- JS, Popper.js, and jQuery -->
+    
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.14.0/devicon.min.css">
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <!-- Temporary inline css as external is giving issues, fix later: -->
-    <style>
-        @media (min-width: 768px) {
-            .omb_row-sm-offset-3 div:first-child[class*="col-"] {
-                margin-left: 25%;
-            }
-        }
-
-        .omb_login .omb_authTitle {
-            text-align: center;
-            line-height: 300%;
-        }
-
-        .omb_login .omb_socialButtons a {
-            color: white; 
-            opacity: 0.9;
-        }
-
-        .omb_login .omb_socialButtons a:hover {
-            color: white;
-            opacity: 1;
-        }
-
-        .omb_login .omb_socialButtons .omb_btn-facebook {
-            background: #3b5998;
-        }
-
-        .omb_login .omb_socialButtons .omb_btn-strava {
-            background: #FC4C02;
-        }
-
-        .omb_login .omb_socialButtons .omb_btn-google {
-            background: #c32f10;
-        }
-
-
-        .omb_login .omb_loginOr {
-            position: relative;
-            font-size: 1.5em;
-            color: #aaa;
-            margin-top: 1em;
-            margin-bottom: 1em;
-            padding-top: 0.5em;
-            padding-bottom: 0.5em;
-        }
-
-        .omb_login .omb_loginOr .omb_hrOr {
-            background-color: #cdcdcd;
-            height: 1px;
-            margin-top: 0px !important;
-            margin-bottom: 0px !important;
-        }
-
-        .omb_login .omb_loginOr .omb_spanOr {
-            display: block;
-            position: absolute;
-            left: 50%;
-            top: -0.6em;
-            margin-left: -1.5em;
-            background-color: white;
-            width: 3em;
-            text-align: center;
-        }
-
-        .omb_login .omb_loginForm .input-group.i {
-            width: 2em;
-        }
-
-        .omb_login .omb_loginForm .help-block {
-            color: red;
-        }
-        .inactiveLink {
-            pointer-events: none;
-            cursor: default;
-         }
-         
-        .responsive-form {
-            width:30%;
-        }
-
-        @media (max-width: 768px) {
-            .responsive-form {
-                width:90%;
-            }
-        }
-
-        @media (min-width: 768px) {
-            .omb_login .omb_forgotPwd {
-                text-align: right;
-                margin-top: 10px;
-            }
-        }
-        .border{
-            margin: 0 auto;
-            text-align: center;
-            border-style: solid;
-            border-color: #aba8a8;
-            border-radius: 7px;
-            background-color: #f1f0f0;
-        }
-        
-        
-        
-    </style>
 </head>
 
 <body>
+    <style>
+
+    .button {
+    background-color: #4CAF50;
+    border-radius: 25px;
+    border: none;
+    color: white;
+    padding: 15px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0 auto;
+    line-height: 18px;
+    padding: 5px;
+    }
+
+    @media (min-width: 768px) {
+    .omb_row-sm-offset-3 div:first-child[class*="col-"] {
+        margin-left: 25%;
+    }
+    }
+
+    .omb_login .omb_authTitle {
+    text-align: center;
+    line-height: 300%;
+    }
+
+    .omb_login .omb_socialButtons a {
+    color: white; 
+    opacity: 0.9;
+    }
+
+    .omb_login .omb_socialButtons a:hover {
+    color: white;
+    opacity: 1;
+    }
+
+    .omb_login .omb_socialButtons .omb_btn-facebook {
+    background: #3b5998;
+    }
+
+    .omb_login .omb_socialButtons .omb_btn-strava {
+    background: #FC4C02;
+    }
+
+    .omb_login .omb_socialButtons .omb_btn-google {
+    background: #c32f10;
+    }
+
+
+    .omb_login .omb_loginOr {
+    position: relative;
+    font-size: 1.5em;
+    color: #aaa;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    }
+
+    .omb_login .omb_loginOr .omb_hrOr {
+    background-color: #cdcdcd;
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    }
+
+    .omb_login .omb_loginOr .omb_spanOr {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -0.6em;
+    margin-left: -1.5em;
+    background-color: white;
+    width: 3em;
+    text-align: center;
+    }
+
+    .omb_login .omb_loginForm .input-group.i {
+    width: 2em;
+    }
+
+    .omb_login .omb_loginForm .help-block {
+    color: red;
+    }
+    .inactiveLink {
+    pointer-events: none;
+    cursor: default;
+    }
+
+    .responsive-form {
+    width:30%;
+    }
+
+    @media (max-width: 768px) {
+    .responsive-form {
+        width:90%;
+    }
+    }
+
+    @media (min-width: 768px) {
+    .omb_login .omb_forgotPwd {
+        text-align: right;
+        margin-top: 10px;
+    }
+    }
+    .border{
+    margin: 0 auto;
+    text-align: center;
+    border-style: solid;
+    border-color: #aba8a8;
+    border-radius: 7px;
+    background-color: #f1f0f0;
+    }
+
+
+    </style>
+
+    
+
+
+    <center>
     <%- include('partials/navbar') %>
     <div class="container">
         <% JSON.stringify(messages) %>
@@ -136,8 +174,8 @@
         </div>
           <br>
           <div class="container" style="text-align: center;">
-            <div style="color:red; font-size:15px;">For a limited time, new users will receive free credits toward their</div>
-            <div style="color:red;padding-bottom:20px;font-size:15px;">Premium Membership. Registration is free, no credit card required!</div>
+            <div style="color:red; font-size:15px;">aerat voluptatem. Ut</div>
+            <div style="color:red;padding-bottom:20px;font-size:15px;">uh... I heard a wooden floor board creek? Did I get pregnant? </div>
           </div>
         <div class="border responsive-form">
             <h3 class="omb_authTitle">Signup</h3>
@@ -200,19 +238,15 @@
                     <p class="omb_forgotPwd">
                         <a href="#">Forgot password?</a>
                     </p>
-                </div>
-            
-        </div> -->
-      </div>
-        <div class="container">
-            <blockquote class="blockquote text-center">
-                <p class="mb-0">As long as I keep getting cast, I don't care if it's typecast.</p>
-                <footer class="blockquote-footer">Chris Prat <cite title="Source Title">https://www.brainyquote.com/</cite></footer>
-              </blockquote>
-        </div>  
-    
-    <%- include('partials/footer') %>
-    
-</body>
+                </div>-->
 
+            <blockquote>
+                    “Well, yeah,” says TJteemu, “Treehouses are can be very dangerous!, but it was only designed for one person. ;) ”.... THATS THE LAST THEY EVER HEARD OF XENO AGAIN... 
+                    -TEEMU-BEAMU, The Treehouse STORY
+            </blockquote>
+        </div> 
+        <center> 
+    <%- include('partials/footer') %>
+</center>
+</body>
 </html>

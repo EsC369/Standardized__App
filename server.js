@@ -11,6 +11,9 @@ const path = require("path");
 const passport = require("passport");
 // const dotenv = require('dotenv').config();
 const colors = require("colors");
+
+
+
 // Db Config:
 // const db = config.get("mongoURI");
 const connectDB = require("./config/db");
@@ -20,20 +23,18 @@ connectDB();
 
 
 
-/* TEMPORARY! REMOVE AND MODULIZE LATER! :D */
+// /* TEMPORARY! REMOVE AND MODULIZE LATER! :D */
 
-const SESSION_SECRET = "SwordFish";
-/* END*/
-
-
-
+// const SESSION_SECRET = "SwordFish";
+// /* END*/
 
 // app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+// DECLARE STATIC FOLDER FOR SAID PROPERTIES SUCH AS CSS AND IMAGES, BUt as well Declare Structure for  ICon and everything IF needed in the future :D
+app.use(express.static(path.join(__dirname + "/public")));
+// app.use(favicon(path.join(__dirname +'/public/images/favicon.ico')));
 
 
-// mongoose.set('strictQuery', true);
-// mongoose.set('useNewUrlParser', true);
 
 // Passport Middleware:
 app.use(passport.initialize());
@@ -52,14 +53,21 @@ const session = require("express-session");
 var sess = {
   secret: 'TEMP PASS',
   cookie: {maxAge: 600000}
-}
+};
+
 if (app.get('env') === 'production') {
   app.set('trust proxy', 1) // trust first proxy
   sess.cookie.secure = true // serve secure cookies
-}
-app.use(session(sess))
+};
 
-// -----------------------------------------
+// Session:
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 600000 } // One hour session - will change later on.
+}));
+
 
 // Flash Error Messages
 const flash = require("express-flash");
@@ -67,7 +75,6 @@ app.use(flash());
 
 // Routes:
 app.use("/", Routes);
-
 
 
 // Listening

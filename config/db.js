@@ -1,4 +1,15 @@
+const express = require("express");
+const app = express();
 const mongoose = require("mongoose");
+
+// Initialize Middelware for Mongo Options:
+mongoose.set('useNewUrlParser',true);
+mongoose.set('useCreateIndex',true);
+mongoose.set('strictQuery', true);
+mongoose.set('useNewUrlParser', true);
+mongoose.set("useUnifiedTopology",  true);
+
+// Push Connection To Database:
 const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI);
@@ -9,4 +20,4 @@ const connectDB = async () => {
     }
 }
 
-module.exports = connectDB
+module.exports = connectDB;

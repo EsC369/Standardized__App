@@ -292,6 +292,8 @@ router.post("/update-profile", (req, res) => {
   }
 });
 
+
+// NOTE HERE! LEFT OFF ON LOGIN HERE!
 // @route  POST /login
 // @desc  For Logging In A User
 router.post('/login', (req, res) => {
@@ -303,13 +305,13 @@ router.post('/login', (req, res) => {
   if (!emailLog || !passwordLog) {
     console.log("Please Enter All Login Fields!")
     req.flash("error", "Please Enter All Login Fields")
-    res.redirect("/login-page");;
-  }
-  else if(!emailREGEX.test(emailLog)){
-    console.log("Invalid Email")
-    req.flash("error", "Please Enter A Valid Email")
     res.redirect("/login-page");
   }
+  // else if(!emailREGEX.test(emailLog)){
+  //   console.log("Invalid Email")
+  //   req.flash("error", "Please Enter A Valid Email")
+  //   res.redirect("/login-page");a
+  // }
   else {
     // Query DB For User By Specified Email:
     User.findOne({ email: emailLower }, function (err, user) {
@@ -327,16 +329,16 @@ router.post('/login', (req, res) => {
               res.render("profile", {user: user, msg: "Successfully Logged in! Welcome Back!"});
             }
             else { // Else passwords did not match with stored hash:
-              console.log("Wrong Password!")
-              req.flash("error", "Wrong Password!")
-              res.redirect("/login-page");
+              console.log("Wrong Password!");
+              req.flash("error", "Wrong Password!");
+              res.redirect("/login-page");  
             }
           });
         }
         else { // User not found
-          console.log("User Not Found!")
-          req.flash("error", "User Not found")
-          res.redirect("/login-page")
+          console.log("User Not Found!");
+          req.flash("error", "User Not found");
+          res.redirect("/login-page");
         }
       }
     })
@@ -375,8 +377,9 @@ router.post("/logout", (req, res) => {
 router.post("/register", (req, res) => {
   // Destructuring, Pulling the values out from request.body
   const { name, email, password, password2, phone, zipcode, nickname, gender, country } = req.body;
-  let lowerEmail = email.toLowerCase() // setting email input to lowercase to deture mismatches due to being case sensative:
-  console.log("email lower case", lowerEmail)
+  let lowerEmail = email.toLowerCase(); // setting email input to lowercase to deture mismatches due to being case sensative:
+  console.log("email lower case", lowerEmail);
+  console.log("Data being grabbed is :", req.body);
   // Basic Validation: -------- NOTE Some fields are commented out in case we end up wanting them:
   // if(!phone || phone === ""){
   //   console.log("Phone Is blank")
@@ -432,8 +435,9 @@ router.post("/register", (req, res) => {
   //   res.redirect("/register-page");
   // }
   else if(!password || password === ""){
-    console.log("Password Is blank")
-    req.flash("error", "Please Enter A Password")
+
+    console.log("Password Is blank");
+    req.flash("error", "Please Enter A Password");
     res.redirect("/register-page");
   // }else if(password != password2){
   //   console.log("Passwords DO NOt match!")
@@ -454,17 +458,22 @@ router.post("/register", (req, res) => {
         credits = genCredits();
 
         // Create new User With generated Premium credits and declaring default photo path for img:
+        // const newUser = new User({
+        //   name,
+        //   email: lowerEmail,
+        //   zipcode,
+        //   nickname,
+        //   phone,
+        //   gender,
+        //   country,
+        //   password,
+        //   premium_credits: credits,
+        //   img: "../uploads/default-photo.jpg"
+        // })
         const newUser = new User({
           name,
           email: lowerEmail,
-          zipcode,
-          nickname,
-          phone,
-          gender,
-          country,
-          password,
-          premium_credits: credits,
-          img: "../uploads/default-photo.jpg"
+          password
         })
         // Create salt and hashed password utilizing bcrypt:
         bcrypt.genSalt(10, (err, salt) => {
@@ -483,7 +492,7 @@ router.post("/register", (req, res) => {
             // Add ID Into Session:
             req.session.user_id = newUser._id;
             // Send Email Function with nodemailer:
-            sendEmail(email, name)
+            // sendEmail(email, name) HERE! MOTE! SENDING EMAIL CALL! :
             // Render Profile page with New user info:
             res.render("profile", {user: newUser, msg: 'Account Created! Please Check Your Email!'});
             
@@ -493,73 +502,76 @@ router.post("/register", (req, res) => {
   }
 });
 
+//  FUNCTION TO SEND EMAIL TO NEW USER!  - CURRENTLY BREAKING AND/OR GETTING HUND! :D
 // Helper function to send email to users:
-function sendEmail(email, name){
-  console.log(`Sending Email To ${email}...`)
-  let transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true, // true for 465, false for other ports
-    auth: {
-      user: proccess.env.TEST_NAME, // generated ethereal user
-      pass: proccess.env.TEST, // generated ethereal password
-    },
-  });
-  // try{
+// function sendEmail(email, name){
+//   console.log(`Sending Email To ${email}...`)
+//   let transporter = nodemailer.createTransport({
+//     host: "smtp.gmail.com",
+//     port: 465,
+//     secure: true, // true for 465, false for other ports
+//     auth: {
+//       user: proccess.env.TEST_NAME, // generated ethereal user
+//       pass: proccess.env.TEST, // generated ethereal password
+//     },
+//   });
+//   // try{
       
-      // Email template inline css for sending html through email: Commented out for now as not desired:
-    // const output = `<table cellspacing="0" cellpadding="0" border="0" style="color:#333;background:#fff;padding:0;margin:0;width:100%;font:15px/1.25em 'Helvetica Neue',Arial,Helvetica"> <tbody><tr width="100%"> <td valign="top" align="left" style="background:#eef0f1;font:15px/1.25em 'Helvetica Neue',Arial,Helvetica"> <table style="border:none;padding:0 18px;margin:50px auto;width:500px"> <tbody> <tr width="100%" height="60"> <td valign="top" align="left" style="border-top-left-radius:4px;border-top-right-radius:4px;background:#27709b url("/images/typecast-logo-solo.png" title="Trello" style="font-weight:bold;font-size:18px;color:#fff;vertical-align:top" class="CToWUd"> </td> </tr> <tr width="100%"> <td valign="top" align="left" style="background:#fff;padding:18px">
+//       // Email template inline css for sending html through email: Commented out for now as not desired:
+//     // const output = `<table cellspacing="0" cellpadding="0" border="0" style="color:#333;background:#fff;padding:0;margin:0;width:100%;font:15px/1.25em 'Helvetica Neue',Arial,Helvetica"> <tbody><tr width="100%"> <td valign="top" align="left" style="background:#eef0f1;font:15px/1.25em 'Helvetica Neue',Arial,Helvetica"> <table style="border:none;padding:0 18px;margin:50px auto;width:500px"> <tbody> <tr width="100%" height="60"> <td valign="top" align="left" style="border-top-left-radius:4px;border-top-right-radius:4px;background:#27709b url("/images/typecast-logo-solo.png" title="Trello" style="font-weight:bold;font-size:18px;color:#fff;vertical-align:top" class="CToWUd"> </td> </tr> <tr width="100%"> <td valign="top" align="left" style="background:#fff;padding:18px">
 
-    // <h1 style="font-size:20px;margin:16px 0;color:#333;text-align:center"> Let's collaborate! </h1>
+//     // <h1 style="font-size:20px;margin:16px 0;color:#333;text-align:center"> Let's collaborate! </h1>
     
-    // <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;text-align:center"> You are invited to the TypeCast Group: </p>
-    // <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;text-align:center"> Thank you for registering! Your typecasting awaits! </p>
+//     // <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;text-align:center"> You are invited to the About TypeCast.Life! Group: </p>
+//     // <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333;text-align:center"> Thank you for registering! Your typecasting awaits! </p>
     
-    // <div style="background:#f6f7f8;border-radius:3px"> <br>
+//     // <div style="background:#f6f7f8;border-radius:3px"> <br>
     
-    // <p style="text-align:center"> <a href="#" style="color:#306f9c;font:26px/1.25em 'Helvetica Neue',Arial,Helvetica;text-decoration:none;font-weight:bold" target="_blank">Typecast.Life</a> </p>
+//     // <p style="text-align:center"> <a href="#" style="color:#306f9c;font:26px/1.25em 'Helvetica Neue',Arial,Helvetica;text-decoration:none;font-weight:bold" target="_blank">Typecast.Life</a> </p>
     
-    // <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;margin-bottom:0;text-align:center"> <a href="#" style="border-radius:3px;background:#3aa54c;color:#fff;display:block;font-weight:700;font-size:16px;line-height:1.25em;margin:24px auto 6px;padding:10px 18px;text-decoration:none;width:180px" target="_blank"> See the organization</a> </p>
+//     // <p style="font:15px/1.25em 'Helvetica Neue',Arial,Helvetica;margin-bottom:0;text-align:center"> <a href="#" style="border-radius:3px;background:#3aa54c;color:#fff;display:block;font-weight:700;font-size:16px;line-height:1.25em;margin:24px auto 6px;padding:10px 18px;text-decoration:none;width:180px" target="_blank"> See the organization</a> </p>
     
-    // <br><br> </div>
+//     // <br><br> </div>
     
-    // <p style="font:14px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333"> <strong>What's Typecast?</strong> It's the easiest way to find out what others perceive of you! <a href="https://type-cast.herokuapp.com/about-page" style="color:#306f9c;text-decoration:none;font-weight:bold" target="_blank">Learn more »</a> </p>
+//     // <p style="font:14px/1.25em 'Helvetica Neue',Arial,Helvetica;color:#333"> <strong>What's Typecast?</strong> It's the easiest way to find out what others perceive of you! <a href="https://type-cast.herokuapp.com/about-page" style="color:#306f9c;text-decoration:none;font-weight:bold" target="_blank">Learn more »</a> </p>
     
-    // </td>
+//     // </td>
     
-    // </tr>
+//     // </tr>
     
-    // </tbody> </table> </td> </tr></tbody> </table>`;
+//     // </tbody> </table> </td> </tr></tbody> </table>`;
 
-    var output = `Welcome to TypeCast.Life, ${name}!
+//     var output = `Welcome to TypeCast.Life, ${name}!
 
-    Let's get started! Head to https://www.typecast.life and update your profile. Once that's out of the way, feel free to select a few sample questions as a challenge to other users. It will be fun!
+//     Let's get started! Head to https://www.typecast.life and update your profile. Once that's out of the way, feel free to select a few sample questions as a challenge to other users. It will be fun!
     
-    As a reward for pre-registering on the site before the launch, you have been awarded ${randCred} credits towards Premium membership. Check back often to discover new ways to earn more credits!
+//     As a reward for pre-registering on the site before the launch, you have been awarded ${randCred} credits towards Premium membership. Check back often to discover new ways to earn more credits!
     
-    Coming Soon:  Verify Your Email By Clicking The Link: 5965785dadefe410f946cdb37b74ab6a
+//     Coming Soon:  Verify Your Email By Clicking The Link: 5965785dadefe410f946cdb37b74ab6a
 
-    Sincerely,
-    The TypeCast.Life team
+//     Sincerely,
+//     The TypeCast.Life team
     
-    P.S. This is automated email. Please do not reply to this message`;
+//     P.S. This is automated email. Please do not reply to this message`;
 
-    var mailOptions = {
-      from: '"TypeCast.Life!" <no-Reply@gmail.com>', // sender address
-      to: `${email}`, // list of receivers
-      subject: "Hello ✔ WELCOME TO TYPECAST.LIFE!",
-      text: output
-  };
+//     var mailOptions = {
+//       from: '"TypeCast.Life!" <no-Reply@gmail.com>', // sender address
+//       to: `${email}`, // list of receivers
+//       subject: "Hello ✔ WELCOME TO TYPECAST.LIFE!",
+//       text: output
+//   };
 
-  // Send email and handle response:
-  transporter.sendMail(mailOptions, function(error, info){
-  if(error){
-      console.log("error:", error)
-  }else{
-      console.log('Message sent: ' + info.response);
-  };
-  });  
-};
+//   // Send email and handle response:
+//   transporter.sendMail(mailOptions, function(error, info){
+//   if(error){
+//       console.log("error:", error)
+//   }else{
+//       console.log('Message sent: ' + info.response);
+//   };
+//   });  
+// };
+
+// END HERE OF EMAIL SENDER!:
 
 //----------------- FACEBOOK LOGIN ----------------
 // facebook login Left off On reversing user info for input and output
